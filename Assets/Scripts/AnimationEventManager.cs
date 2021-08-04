@@ -1,13 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
-
-[CustomEditor(typeof(GameManager))]
-public class GameManagerEditor : Editor
+public class AnimationEventManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     void Start()
     {
         

@@ -13,7 +13,7 @@ public class GameEvent : Singleton<GameEvent>
     public const string GAMEOVER_EVENT = "*****=GAME_OVER_EVENT=******";
     public const string GAMERESET_EVENT = "*****=GAME_RESET_EVENT=******";
     public const string HOMEPRESSED_EVENT = "*****=GAME_HOMEPRESSED_EVENT=******";
-
+    public const string ANIMATOR_EVENT = "*****=GAME_ANIMATOR_EVENT_EVENT=******";
     Dictionary<string, List<Action<IEventArgs>>> eventActionList = new Dictionary<string, List<Action<IEventArgs>>>();
 
 
@@ -130,4 +130,20 @@ public class GameOverEventArgs : IGameOverEventArgs
 
     public bool IsWin { get { return isWin; } }
 }
+
+public interface IAnimatorEventArgs : IEventArgs
+{
+    public AnimationEventType EventType { get; }
+}
+public class AnimatorEventArgs : IAnimatorEventArgs
+{
+    public AnimationEventType eventType;
+    public AnimatorEventArgs(AnimationEventType eventType)
+    {
+        this.eventType = eventType;
+    }
+
+    public AnimationEventType EventType { get { return eventType; } }
+}
+
 #endregion

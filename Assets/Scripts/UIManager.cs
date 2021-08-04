@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour, IManagerDependencies
 
     [Header("GameOver UI")]
     [SerializeField]
+    Animator gameOver_animator;
+    [SerializeField]
     GameObject gameOverScreen;
 
     [SerializeField]
@@ -50,8 +52,8 @@ public class UIManager : MonoBehaviour, IManagerDependencies
 
     private void OnPlayAgainClicked()
     {
-        gameOverScreen.SetActive(false);
-        GameEvent.Instance.SendEvent(GameEvent.GAMERESET_EVENT, new EventArgs());
+        gameOver_animator.SetTrigger("PlayAgain");
+      
     }
 
     private void OnGameResetClicked()
@@ -66,6 +68,23 @@ public class UIManager : MonoBehaviour, IManagerDependencies
     {
         GameEvent.Instance.RegisterEvent(GameEvent.GAMEOVER_EVENT, OnGameOverEvent);
         GameEvent.Instance.RegisterEvent(GameEvent.GAMESCORE_EVENT, OnGameEvent);
+        GameEvent.Instance.RegisterEvent(GameEvent.ANIMATOR_EVENT, OnAnimatorEvent);
+    }
+
+    private void OnAnimatorEvent(IEventArgs obj)
+    {
+       if(obj != null)
+        {
+            IAnimatorEventArgs eventArgs = obj as IAnimatorEventArgs;
+            switch (eventArgs.EventType)
+            {
+                case AnimationEventType.OnPlayAgain:
+
+                    gameOverScreen.SetActive(false);
+                    GameEvent.Instance.SendEvent(GameEvent.GAMERESET_EVENT, new EventArgs());
+                    break;
+            }
+        }
     }
 
     private void OnGameOverEvent(IEventArgs obj)
@@ -92,6 +111,7 @@ public class UIManager : MonoBehaviour, IManagerDependencies
     {
         GameEvent.Instance.UnRegisterEvent(GameEvent.GAMEOVER_EVENT, OnGameOverEvent);
         GameEvent.Instance.UnRegisterEvent(GameEvent.GAMESCORE_EVENT, OnGameEvent);
+        GameEvent.Instance.UnRegisterEvent(GameEvent.ANIMATOR_EVENT, OnAnimatorEvent);
     }
 
   
