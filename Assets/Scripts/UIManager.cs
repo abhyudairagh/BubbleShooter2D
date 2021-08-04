@@ -6,6 +6,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+/// <summary>
+/// Class to handle UI changes in GameScene
+/// </summary>
 public class UIManager : MonoBehaviour, IManagerDependencies
 {
     [Header("Gameplay UI")]
@@ -19,19 +22,22 @@ public class UIManager : MonoBehaviour, IManagerDependencies
     [Header("GameOver UI")]
     [SerializeField]
     GameObject gameOverScreen;
+
     [SerializeField]
     TextMeshProUGUI g_ScoreCount;
     [SerializeField]
     TextMeshProUGUI g_WinLoseText;
+
     [SerializeField]
     Button playAgainButton;
     [SerializeField]
     Button g_homeButton;
     [SerializeField]
-    string homeSceneName;
+    Button resetButton;
 
     [SerializeField]
-    Button resetButton;
+    string homeSceneName;
+
     IGameManager _gameManager;
     public void Init(IGameManager manager)
     {

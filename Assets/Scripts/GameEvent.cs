@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
-
+/// <summary>
+/// Class for registering and sending gamevents
+/// </summary>
 public class GameEvent : Singleton<GameEvent>
 {
     public const string GAMESCORE_EVENT = "*****=GAME_SCORE_EVENT=******";
@@ -16,7 +17,11 @@ public class GameEvent : Singleton<GameEvent>
     Dictionary<string, List<Action<IEventArgs>>> eventActionList = new Dictionary<string, List<Action<IEventArgs>>>();
 
 
-
+    /// <summary>
+    /// Register an event
+    /// </summary>
+    /// <param name="eventId"></param>
+    /// <param name="callback"></param>
     public  void RegisterEvent(string eventId , Action<IEventArgs> callback)
     {
         if(eventActionList.ContainsKey(eventId))
@@ -33,6 +38,11 @@ public class GameEvent : Singleton<GameEvent>
             eventActionList.Add(eventId, actionQueue);
         }
     }
+    /// <summary>
+    /// Unregister an event
+    /// </summary>
+    /// <param name="eventId"></param>
+    /// <param name="callback"></param>
     public  void UnRegisterEvent(string eventId, Action<IEventArgs> callback)
     {
         if (eventActionList.ContainsKey(eventId))
@@ -43,7 +53,11 @@ public class GameEvent : Singleton<GameEvent>
             }
         }
     }
-
+    /// <summary>
+    /// Send an event
+    /// </summary>
+    /// <param name="eventId"></param>
+    /// <param name="args"></param>
     public  void SendEvent(string eventId, IEventArgs args)
     {
         if (eventActionList.ContainsKey(eventId))
@@ -57,7 +71,6 @@ public class GameEvent : Singleton<GameEvent>
 
     protected override void Init()
     {
-        //throw new NotImplementedException();
     }
 }
 
@@ -66,6 +79,9 @@ public interface IEventArgs
 {
 
 }
+
+#region GameEventArgs Classes
+
 public class EventArgs : IEventArgs
 {
     public EventArgs()
@@ -114,3 +130,4 @@ public class GameOverEventArgs : IGameOverEventArgs
 
     public bool IsWin { get { return isWin; } }
 }
+#endregion

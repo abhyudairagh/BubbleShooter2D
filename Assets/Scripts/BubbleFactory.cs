@@ -17,15 +17,14 @@ public struct Bound
     }
 }
 
+/// <summary>
+/// Used to create bubbles and get informations related to bubble
+/// </summary>
 public class BubbleFactory : Singleton<BubbleFactory>
 {   
     [SerializeField]
     GameObject bubblePrefab;
 
-    Vector2[] topRowPostions;
-
-    [SerializeField]
-    Transform bubblePlacer;
     [SerializeField]
     Color bubblePlacerColor;
 
@@ -34,12 +33,17 @@ public class BubbleFactory : Singleton<BubbleFactory>
     [SerializeField]
     float scaleOffset;
 
+    [Tooltip("Add BubbleMapAsset to get the color/texture information for bubbles")]
     [SerializeField]
     BubbleMapAsset bubbleMapAsset;
 
     float bubblePlaceHeight;
+
     Bound holderBound;
 
+    Vector2[] topRowPostions;
+
+    Transform bubblePlacer;
 
 
     Dictionary<BubbleType, Color> colorMap;
@@ -117,6 +121,15 @@ public class BubbleFactory : Singleton<BubbleFactory>
         topRowPostions = topBubblePostions;
     }
 
+    /// <summary>
+    /// Instantiator which returns generic component type
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="type"></param>
+    /// <param name="position"></param>
+    /// <param name="destroyCallback"></param>
+    /// <param name="isShooter"></param>
+    /// <returns></returns>
     public T CreateBubble<T>(BubbleType type, Vector2 position, Action<IBubble> destroyCallback = null ,bool isShooter = false) where T : class
     {
         GameObject bubble = Instantiate(bubblePrefab, position, Quaternion.identity);
@@ -133,7 +146,10 @@ public class BubbleFactory : Singleton<BubbleFactory>
 
     }
 
-
+    /// <summary>
+    /// Returns the transforms of the assistant bubble(Placeholder bubble to show the shooted bubble's position)
+    /// </summary>
+    /// <returns></returns>
     public Transform GetBubbleAssistant()
     {
         if(bubblePlacer == null)

@@ -6,31 +6,17 @@ using Random = UnityEngine.Random;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Class for shooting the bubble
+/// </summary>
 public class BubbleShooter : MonoBehaviour,IManagerDependencies
 {
 
     [SerializeField]
     float shootSpeed;
 
-    int bubbleCount;
     [SerializeField]
     Transform spawnPoint;
-    [SerializeField]
-    GameObject bubblePlacer;
- 
-
-
-    IBubble _throwBubble;
-
-    bool shooterLoaded;
-
-    bool isTargetFound;
-    Vector2 bubbleTarget;
-    List<Vector2> moveLocations;
-
-    LayerMask wallLayer;
-    LayerMask bubbleLayer;
-    LayerMask topLayer;
 
 
     [Header("Mouse Interaction")]
@@ -40,13 +26,24 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
     float minTiltAngle;
 
     float maxTiltAngle;
-   // bool showTrail;
 
+    int bubbleCount;
+
+    bool shooterLoaded;
     bool isMousePressed;
+    bool isTargetFound;
+
+    Vector2 aimDirection;
+    Vector2 bubbleTarget;
+    List<Vector2> moveLocations;
+
+    LayerMask wallLayer;
+    LayerMask bubbleLayer;
+    LayerMask topLayer;
 
     Camera camera;
-    Vector2 aimDirection;
-
+   
+    IBubble _throwBubble;
     IAimAssistant _aimAssistant;
     IGameManager _gameManager;
     private void OnEnable()
@@ -126,7 +123,9 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
             throwBubble.transform.localScale = Vector3.one * BubbleFactory.Instance.BubbleSize * BubbleFactory.Instance.ScaleOffset;
         }
     }
-
+    /// <summary>
+    /// Method to fire a bubble once aimed
+    /// </summary>
     private void fireBubble()
     {
         if (isTargetFound)
@@ -211,6 +210,10 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
         
     }
 
+    /// <summary>
+    /// Method to find the final location of the bubble that is shot towards a direction
+    /// </summary>
+    /// <param name="direction"></param>
     void FindHitTarget(Vector2 direction)
     {
         

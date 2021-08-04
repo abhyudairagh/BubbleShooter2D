@@ -57,12 +57,16 @@ public struct AimAssistantTransform
     }
 
 }
+/// <summary>
+/// Class used for Aiming purpose and updating aiming directions/postions
+/// </summary>
 public class AimAssistant : MonoBehaviour,IAimAssistant
 {
     [SerializeField]
     LineRenderer rayRenderer;
 
     Transform bubbleHelper;
+
     Vector2 targetPosition;
 
     public Vector2 TargetPosition
@@ -73,6 +77,15 @@ public class AimAssistant : MonoBehaviour,IAimAssistant
         }
     }
 
+    void Start()
+    {
+        BubbleShooter shooter = GetComponentInParent<BubbleShooter>();
+        if (shooter != null)
+        {
+            shooter.SetAimAssistant(this);
+        }
+        bubbleHelper = BubbleFactory.Instance.GetBubbleAssistant();
+    }
 
     public void SetRayPositionCount(int count)
     {
@@ -87,6 +100,12 @@ public class AimAssistant : MonoBehaviour,IAimAssistant
     {
         rayRenderer.startColor = color;
     }
+    /// <summary>
+    /// Method to identify the position of aim assistant bubble and to show the aiming trail
+    /// </summary>
+    /// <param name="hitDir"></param>
+    /// <param name="pos"></param>
+    /// <param name="hitPoint"></param>
     public void ShowAimAssistant(Vector2 hitDir, Vector2 pos, Vector2 hitPoint)
     {
         AimAssistantTransform aimBubbleTransform = new AimAssistantTransform(hitDir,hitPoint);
@@ -120,28 +139,13 @@ public class AimAssistant : MonoBehaviour,IAimAssistant
             bubbleHelper.gameObject.SetActive(false);
         }
     }
-
-
-
-    void Start()
-    {
-        BubbleShooter shooter = GetComponentInParent<BubbleShooter>();
-        if (shooter != null)
-        {
-            shooter.SetAimAssistant(this);
-        }
-        bubbleHelper = BubbleFactory.Instance.GetBubbleAssistant();
-    }
-
 }
 
 public interface IAimAssistant
 {
     Vector2 TargetPosition { get; }
     void SetRayPositionCount(int count);
-
     void SetRayPosition(int index, Vector3 position);
-
     void SetRaycolor(Color color);
     void ShowAimAssistant(Vector2 position);
     void ShowAimAssistant(Vector2 hitDir, Vector2 pos, Vector2 hitPoint);

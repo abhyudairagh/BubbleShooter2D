@@ -2,9 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+
+
+/// <summary>
+/// Class to detect Physics2D collision
+/// </summary>
 public class PhysicsRayCaster2D 
 {
-    
+    /// <summary>
+    /// Used to find out the hit point information towards an aim direction 
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="direction"></param>
+    /// <param name="maxDistance"></param>
+    /// <param name="isTophit"></param>
+    /// <param name="hitInfo"></param>
+    /// <param name="segmentPoints"></param>
+    /// <param name="reflectLayer"></param>
+    /// <param name="targetLayer"></param>
+    /// <param name="topLayer"></param>
+    /// <returns></returns>
     public static bool AimRayCast2D(Vector2 origin , Vector2 direction, float maxDistance , out bool isTophit ,out RaycastHit2D hitInfo, out List<Vector2> segmentPoints ,  int reflectLayer , int targetLayer, int topLayer)
     {
 
@@ -37,7 +54,16 @@ public class PhysicsRayCaster2D
         }
         return false;
     }
-
+    /// <summary>
+    /// Raycast to find target by specifying the layer while aiming
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="direction"></param>
+    /// <param name="maxDistance"></param>
+    /// <param name="targetLayer"></param>
+    /// <param name="hitInfo"></param>
+    /// <param name="segmentPoints"></param>
+    /// <returns></returns>
     static bool RayCastWithTarget(Vector2 origin, Vector2 direction, float maxDistance, int targetLayer,ref RaycastHit2D hitInfo, ref List<Vector2> segmentPoints)
     {
         RaycastHit2D targetHit = Physics2D.Raycast(origin, direction, maxDistance, targetLayer);
@@ -50,6 +76,17 @@ public class PhysicsRayCaster2D
         }
         return false;
     }
+    /// <summary>
+    /// Raycast from a vertical surface to  reflected direction while aiming
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="direction"></param>
+    /// <param name="maxDistance"></param>
+    /// <param name="reflectLayer"></param>
+    /// <param name="reflectDir"></param>
+    /// <param name="hitInfo"></param>
+    /// <param name="segmentPoints"></param>
+    /// <returns></returns>
     static bool RayCastWithReflectLayer(Vector2 origin, Vector2 direction, float maxDistance, int reflectLayer,out Vector2 reflectDir , ref RaycastHit2D hitInfo, ref List<Vector2> segmentPoints)
     {
         RaycastHit2D hit = Physics2D.Raycast(origin, direction, maxDistance, reflectLayer);
@@ -63,6 +100,18 @@ public class PhysicsRayCaster2D
         }
         return false;
     }
+
+    /// <summary>
+    /// Raycast to find the top postion of the bubbles while aiming
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="direction"></param>
+    /// <param name="maxDistance"></param>
+    /// <param name="topLayer"></param>
+    /// <param name="hitInfo"></param>
+    /// <param name="segmentPoints"></param>
+    /// <param name="isTopHit"></param>
+    /// <returns></returns>
     static bool RayCastWithTopLayer(Vector2 origin, Vector2 direction, float maxDistance, int topLayer, ref RaycastHit2D hitInfo, ref List<Vector2> segmentPoints , ref bool isTopHit)
     {
         

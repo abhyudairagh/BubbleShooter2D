@@ -19,9 +19,7 @@ public class HomeUI : MonoBehaviour
 
     private void OnPlayButtonPressed()
     {
-
         SceneManager.LoadScene(gameSceneName);
-
     }
 
     

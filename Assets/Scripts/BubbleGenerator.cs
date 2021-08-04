@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// Used for generating starting bubbles 
+/// </summary>
 public class BubbleGenerator : MonoBehaviour, IManagerDependencies
 {
 
     [SerializeField]
     SpriteRenderer bubbleHolder;
-
     [SerializeField]
     SpriteRenderer bubbleBase;
 
@@ -19,7 +20,6 @@ public class BubbleGenerator : MonoBehaviour, IManagerDependencies
     BoxCollider2D leftWall;
     [SerializeField]
     BoxCollider2D rightWall;
-
 
     IGameManager _gameManager;
     private void OnEnable()
@@ -46,7 +46,9 @@ public class BubbleGenerator : MonoBehaviour, IManagerDependencies
         }
         InstantiateBubbles();
     }
-
+    /// <summary>
+    /// Create a set of bubbles and place it in the game screen
+    /// </summary>
     void InstantiateBubbles()
     {
         float bubbleSize = BubbleFactory.Instance.BubbleSize;

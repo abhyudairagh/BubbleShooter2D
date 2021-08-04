@@ -9,22 +9,25 @@ public enum IterateDirection
     Up,
     Down
 }
-
+/// <summary>
+/// Class used to implement the core game logics.
+/// Add dependencies by implementing <see cref="IManagerDependencies"/>  to give updates to GameManager
+/// </summary>
 public class GameManager : MonoBehaviour,IGameManager
 {
-
-    [SerializeField]
-    MonoBehaviour[] dependencies;
-    [SerializeField]
-    LayerMask bubbleLayer;
     [SerializeField]
     int scoreOfOneBubble;
     [SerializeField]
     int bubbleAmmoCount;
+    [SerializeField]
+    LayerMask bubbleLayer;
 
-    int totalScore;
-    int  remainingAmmo;
+    [SerializeField]
+    MonoBehaviour[] dependencies;
+   
 
+    int totalScore = 0;
+    int  remainingAmmo = 0;
     int bubbleCount = 0;
 
     List<IBubble> generatedBubble = new List<IBubble>();
@@ -103,6 +106,11 @@ public class GameManager : MonoBehaviour,IGameManager
         GameOver(false);
     }
 
+    /// <summary>
+    /// Methhod used to handle the logic after a bubble is shot
+    /// </summary>
+    /// <param name="shooter"></param>
+    /// <param name="remainingAmmo"></param>
     public void OnBubbleThrow(IBubble shooter, int remainingAmmo)
     {
         this.remainingAmmo = remainingAmmo;
@@ -137,6 +145,10 @@ public class GameManager : MonoBehaviour,IGameManager
         generatedBubble.ForEach(x => x.IsTypeCheked = false);
         UpdatelinkedBubbles(bound);
     }
+    /// <summary>
+    /// Find all the closely linked bubbles and add the neighbouring bubble information to each bubble
+    /// </summary>
+    /// <param name="bound"></param>
     private void UpdatelinkedBubbles(Bound bound)
     {
         generatedBubble.RemoveAll(x => (Bubble)x == null);
@@ -159,6 +171,10 @@ public class GameManager : MonoBehaviour,IGameManager
 
     }
 
+    /// <summary>
+    /// Finds out if there are bubbles that has no root connection
+    /// </summary>
+    /// <returns></returns>
     IEnumerator FindAndMarkRootless()
     {
         yield return null;
@@ -180,6 +196,10 @@ public class GameManager : MonoBehaviour,IGameManager
         yield return RemoveBreakedAndUnlinkedBubbles();
     }
 
+    /// <summary>
+    /// Removes all the rootless and popped bubbles
+    /// </summary>
+    /// <returns></returns>
     IEnumerator RemoveBreakedAndUnlinkedBubbles()
     {
         generatedBubble.Reverse();
@@ -240,6 +260,11 @@ public class GameManager : MonoBehaviour,IGameManager
         }
     }
 
+    /// <summary>
+    /// Method to find the horizontal row of bubbles to pop
+    /// </summary>
+    /// <param name="shooter"></param>
+    /// <param name="rowBubbles"></param>
     void FindItemsToBreakRow(IBubble shooter, List<IBubble> rowBubbles)
     {
         rowBubbles.Add(shooter);
@@ -265,6 +290,11 @@ public class GameManager : MonoBehaviour,IGameManager
         }
     }
 
+    /// <summary>
+    /// Method to find all the side connected bubbles of a single bubble
+    /// </summary>
+    /// <param name="shooter"></param>
+    /// <param name="rowBubbles"></param>
     void LinksOnSide(IBubble bubble, Bound bound, out List<IBubble> neighbourBubbles , out bool hasEnding )
     {
         float bubbleSize = bubble.BubbleSize;
@@ -290,6 +320,13 @@ public class GameManager : MonoBehaviour,IGameManager
         hasEnding = (leftEnding || rightEnding);
     }
 
+    /// <summary>
+    /// method to find out the nearest bubbles on top of a bubble
+    /// </summary>
+    /// <param name="bubble"></param>
+    /// <param name="bound"></param>
+    /// <param name="neighbourBubbles"></param>
+    /// <param name="hasEnding"></param>
     void LinksOnTop(IBubble bubble, Bound bound,  out List<IBubble> neighbourBubbles, out bool hasEnding)
     {
         hasEnding = false;
@@ -327,7 +364,15 @@ public class GameManager : MonoBehaviour,IGameManager
         }
     }
 
-
+    /// <summary>
+    /// Find the all connected bubbles in left/right direction
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="bound"></param>
+    /// <param name="neighbourBubble"></param>
+    /// <param name="direction"></param>
+    /// <param name="hasEnding"></param>
+    /// <returns></returns>
         bool CheckForBubble(Vector2 pos,Bound bound, out IBubble neighbourBubble , IterateDirection direction, ref bool hasEnding)
         {
             neighbourBubble = null;
@@ -388,7 +433,6 @@ public interface IGameManager
     int GameScore { get; }
     int RemainingAmmoCount { get; }
     bool IsShooting { get; set; }
-
     int TotalAmmo { get; }
     void OnBubbleThrow(IBubble shooter , int remainingAmmo);
     void AddBubbleToList(IBubble bubble);
