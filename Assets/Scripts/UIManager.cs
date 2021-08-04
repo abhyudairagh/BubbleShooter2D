@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour, IManagerDependencies
@@ -26,6 +27,8 @@ public class UIManager : MonoBehaviour, IManagerDependencies
     Button playAgainButton;
     [SerializeField]
     Button g_homeButton;
+    [SerializeField]
+    string homeSceneName;
 
     [SerializeField]
     Button resetButton;
@@ -51,7 +54,7 @@ public class UIManager : MonoBehaviour, IManagerDependencies
     }
     private void OnHomeClicked()
     {
-        GameEvent.Instance.SendEvent(GameEvent.HOMEPRESSED_EVENT, new EventArgs());
+        SceneManager.LoadScene(homeSceneName);
     }
     private void OnEnable()
     {

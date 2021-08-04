@@ -97,6 +97,12 @@ public class GameManager : MonoBehaviour,IGameManager
         bubbleCount++;
     }
 
+    IEnumerator DelayedGameOver()
+    {
+        yield return null;
+        GameOver(false);
+    }
+
     public void OnBubbleThrow(IBubble shooter, int remainingAmmo)
     {
         this.remainingAmmo = remainingAmmo;
@@ -105,7 +111,7 @@ public class GameManager : MonoBehaviour,IGameManager
         float ballIntersectPoint = (shooter.GameObject.transform.position.y - shooter.BubbleSize * 0.5f);
         if (ballIntersectPoint< triggerPoint)
         {
-            GameOver(false);
+            StartCoroutine(DelayedGameOver());
             return;
         }
 
@@ -296,10 +302,6 @@ public class GameManager : MonoBehaviour,IGameManager
         Vector2 rightpos = (Vector2)bubble.GameObject.transform.position + ((Vector2.up + Vector2.right) * bubbleSize);
         RaycastHit2D leftTopHit = Physics2D.CircleCast(leftpos, 0.001f, Vector2.zero,0,  bubbleLayer);
         RaycastHit2D rightTopHit = Physics2D.CircleCast(rightpos, 0.001f, Vector2.zero, 0,  bubbleLayer);
-
-        Debug.DrawRay((Vector2)bubble.GameObject.transform.position, ((Vector2.up + Vector2.left) * bubbleSize),Color.red);
-        Debug.DrawRay((Vector2)bubble.GameObject.transform.position, ((Vector2.up + Vector2.right) * bubbleSize), Color.red);
-      //  Debug.Break();
 
         if (leftTopHit.collider != null)
         {

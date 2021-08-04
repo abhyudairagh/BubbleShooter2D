@@ -155,8 +155,8 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
                     _throwBubble.IsShooter = false;
                     _gameManager.AddBubbleToList(_throwBubble);
                     _gameManager.OnBubbleThrow(_throwBubble, bubbleCount);
-                    CreateShooterBubble();
-               
+                     CreateShooterBubble();
+
             });
         }
     }
@@ -217,14 +217,12 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
         if (PhysicsRayCaster2D.AimRayCast2D(transform.position, direction, 100f,out bool isTopHit ,out RaycastHit2D hitCollider, out List<Vector2> segments, wallLayer, bubbleLayer, topLayer ))
         {
             moveLocations = segments;
-            _aimAssistant.SetRayPositionCount( segments.Count);
-            for (int i= 0; i< segments.Count; i++)
+            _aimAssistant.SetRayPositionCount(segments.Count);
+            //segments[segments.Count - 1] = hitCollider.point;
+            for (int i= 0; i< segments.Count ; i++)
             {
                 _aimAssistant.SetRayPosition(i,segments[i]);
-                //if (i < segments.Count - 2)
-                //{
-                //    Debug.DrawLine(segments[i], segments[i + 1], Color.yellow);
-                //}
+               // Debug.DrawLine(segments[i], segments[i + 1], Color.red);
             }
              
              isTargetFound = true;
