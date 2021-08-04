@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f173942b7a7cd046a2d196073bacd20, type: 3}
+  m_Name: BubbleMapAsset
+  m_EditorClassIdentifier: 
+  bubbleColors:
+  - type: 0
+    color: {r: 0, g: 0.61032796, b: 1, a: 1}
+  - type: 1
+    color: {r: 1, g: 0.059288837, b: 0, a: 1}
+  - type: 2
+    color: {r: 0.025752544, g: 1, b: 0, a: 1}
+  - type: 3
+    color: {r: 1, g: 0.9019608, b: 0, a: 1}
+  - type: 4
+    color: {r: 1, g: 0.51320755, b: 0.51320755, a: 1}
+  - type: 5
+    color: {r: 0.8380209, g: 1, b: 0.5137255, a: 1}
+  bubbleTextures:
+  - type: 4
+    sprite: {fileID: 21300000, guid: bb69308fee283784db068e9c25688588, type: 3}
+  - type: 5
+    sprite: {fileID: 21300000, guid: a9dbc589ba3eaba46b305b8adcf32a9d, type: 3}
+  defaultSprite: {fileID: 21300000, guid: cda23871323c28b479b8ffade88dd89e, type: 3}
