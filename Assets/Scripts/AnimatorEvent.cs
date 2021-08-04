@@ -4,7 +4,8 @@ using UnityEngine;
 
 public enum AnimationEventType
 {
-    OnPlayAgain
+    OnPlayAgain,
+    OnTipsPopupClosed
 }
 
 public class AnimatorEvent : MonoBehaviour

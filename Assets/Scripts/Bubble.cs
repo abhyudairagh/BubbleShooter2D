@@ -10,8 +10,8 @@ public enum BubbleType
     Blue,
     Red,
     Green,
-    yellow,
-    SingleBreaker,
+    Yellow,
+    WildBubble,
     RowBreaker
 }
 
@@ -299,7 +299,7 @@ public class Bubble : MonoBehaviour,IBubble
 
             if (collidedBubble != null)
             {
-                if (type == BubbleType.SingleBreaker)
+                if (type == BubbleType.WildBubble)
                 {
                     type = collidedBubble.Type;
                     BlendUpdateRenderer();

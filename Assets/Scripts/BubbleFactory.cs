@@ -95,7 +95,10 @@ public class BubbleFactory : Singleton<BubbleFactory>
         {
             return colorMap[type];
         }
-        throw new KeyNotFoundException(type.ToString() + "Type is not found in the Dictionary");
+        else
+        {
+            return Color.white;
+        }
     }
     public Sprite GetSprite(BubbleType type)
     {
@@ -107,7 +110,6 @@ public class BubbleFactory : Singleton<BubbleFactory>
         {
             return bubbleMapAsset.defaultSprite;
         }
-        //throw new KeyNotFoundException(type.ToString() + "Type is not found in the Dictionary");
     }
     protected override void Init()
     {

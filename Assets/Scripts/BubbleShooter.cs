@@ -167,14 +167,12 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
     private void OnMouseDown()
     {
         isMousePressed = true;
-        Debug.Log("Mouse Pressed");
     }
 
     private void OnMouseUp()
     {
         isMousePressed = false;
         fireBubble();
-        Debug.Log("Mouse released");
     }
 
     private void Update()
@@ -223,11 +221,9 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
         {
             moveLocations = segments;
             _aimAssistant.SetRayPositionCount(segments.Count);
-            //segments[segments.Count - 1] = hitCollider.point;
             for (int i= 0; i< segments.Count ; i++)
             {
                 _aimAssistant.SetRayPosition(i,segments[i]);
-                //Debug.DrawLine(segments[i], segments[i + 1], Color.red);
             }
              
              isTargetFound = true;
@@ -235,7 +231,6 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
             if (!isTopHit)
             {
                 Vector2 hitDir = ((Vector2)hitCollider.collider.transform.position - segments[segments.Count - 2]).normalized;
-                //Debug.Log("HitDir : " + hitDir);
                 _aimAssistant?.ShowAimAssistant(hitDir, hitCollider.collider.transform.position, hitCollider.point);
             }
             else
