@@ -164,6 +164,12 @@ public class BubbleFactory : Singleton<BubbleFactory>
             renderer.sortingLayerID = SortingLayer.NameToID("OnTop");
             Destroy(script);
             Destroy(colldier);
+
+            foreach(Transform child in bubble.transform)
+            {
+                Destroy(child.gameObject);
+            }
+
             renderer.color = bubblePlacerColor;
 
             bubble.SetActive(false);

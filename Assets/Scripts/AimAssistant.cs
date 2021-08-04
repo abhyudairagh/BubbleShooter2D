@@ -44,11 +44,11 @@ public struct AimAssistantTransform
             position.x += bubbleRadius;
         }
         Bound bound = BubbleFactory.Instance.BorderBounds;
-        if(position.x < bound.minx)
+        if(Mathf.Round(position.x) < Mathf.Round(bound.minx ))
         {
             position.x += (bubbleRadius * 2f);
         }
-        else if(position.x > bound.maxx)
+        else if(Mathf.Round(position.x )> Mathf.Round(bound.maxx) )
         {
             position.x -= (bubbleRadius * 2f);
         }

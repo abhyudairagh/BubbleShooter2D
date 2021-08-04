@@ -38,6 +38,7 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
     List<Vector2> moveLocations;
 
     LayerMask wallLayer;
+    [SerializeField]
     LayerMask bubbleLayer;
     LayerMask topLayer;
 
@@ -95,7 +96,7 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
         maxTiltAngle = (180 - minTiltAngle);
         bubbleCount = _gameManager.TotalAmmo ;
         wallLayer =  1 << LayerMask.NameToLayer("Wall");
-        bubbleLayer = 1 << LayerMask.NameToLayer("Bubble");
+        bubbleLayer = 1 << LayerMask.NameToLayer("Bubble") | 1 << LayerMask.NameToLayer("RayBlock");
         topLayer = 1 << LayerMask.NameToLayer("Top");
 
     }
@@ -103,6 +104,7 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
     public void SetAimAssistant(IAimAssistant aimAssistant)
     {
         _aimAssistant = aimAssistant;
+        _aimAssistant.SetRaycolor(BubbleFactory.Instance.GetColor(_throwBubble.Type));
     }
 
     private void CreateShooterBubble()
@@ -225,7 +227,7 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
             for (int i= 0; i< segments.Count ; i++)
             {
                 _aimAssistant.SetRayPosition(i,segments[i]);
-               // Debug.DrawLine(segments[i], segments[i + 1], Color.red);
+                //Debug.DrawLine(segments[i], segments[i + 1], Color.red);
             }
              
              isTargetFound = true;

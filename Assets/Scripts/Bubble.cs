@@ -22,7 +22,8 @@ public class Bubble : MonoBehaviour,IBubble
 {
     [SerializeField]
     private Text text;
-
+    [SerializeField]
+    private BoxCollider2D[] boxColliders;
     private BubbleType type;
 
     private float bubbleSize;
@@ -42,7 +43,7 @@ public class Bubble : MonoBehaviour,IBubble
 
     private SpriteRenderer spriteRenderer;
     private CircleCollider2D circleCollider;
-
+    
     private List<IBubble> sideConnectors = new List<IBubble>();
     private List<IBubble> topConnectors = new List<IBubble>();
 
@@ -261,6 +262,13 @@ public class Bubble : MonoBehaviour,IBubble
         if(circleCollider == null)
         {
             InitializeBoxCollider();
+        }
+        foreach(BoxCollider2D collider2D in boxColliders)
+        {
+            if (collider2D != null)
+            {
+                collider2D.enabled = enable;
+            }
         }
         circleCollider.enabled = enable;
     }

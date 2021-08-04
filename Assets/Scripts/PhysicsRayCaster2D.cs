@@ -29,14 +29,16 @@ public class PhysicsRayCaster2D
         segmentPoints = new List<Vector2>();
         isTophit = false;
         segmentPoints.Add(origin);
-        
-        if(RayCastWithTarget(origin,direction,maxDistance,targetLayer,ref hitInfo,ref segmentPoints))
+
+        int bubbleLayer = targetLayer | reflectLayer;
+
+        if (RayCastWithTarget(origin,direction,maxDistance, bubbleLayer,  ref hitInfo,ref segmentPoints))
         {
             return true;
         }
         else if(RayCastWithReflectLayer(origin,direction,maxDistance,reflectLayer,out Vector2 reflectDir,ref hitInfo,ref segmentPoints))
         {
-            if (RayCastWithTarget(hitInfo.point, reflectDir, maxDistance, targetLayer, ref hitInfo, ref segmentPoints))
+            if (RayCastWithTarget(hitInfo.point, reflectDir, maxDistance, targetLayer,  ref hitInfo, ref segmentPoints))
             {
                 return true;
             }
@@ -64,10 +66,10 @@ public class PhysicsRayCaster2D
     /// <param name="hitInfo"></param>
     /// <param name="segmentPoints"></param>
     /// <returns></returns>
-    static bool RayCastWithTarget(Vector2 origin, Vector2 direction, float maxDistance, int targetLayer,ref RaycastHit2D hitInfo, ref List<Vector2> segmentPoints)
+    static bool RayCastWithTarget(Vector2 origin, Vector2 direction, float maxDistance, int targetLayer, ref RaycastHit2D hitInfo, ref List<Vector2> segmentPoints)
     {
         RaycastHit2D targetHit = Physics2D.Raycast(origin, direction, maxDistance, targetLayer);
-        if (targetHit.collider != null)
+        if (targetHit.collider != null && (targetHit.collider.tag != "wall"))
         {
             
             segmentPoints.Add(targetHit.point);

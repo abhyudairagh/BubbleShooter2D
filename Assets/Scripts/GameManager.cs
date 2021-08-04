@@ -240,6 +240,7 @@ public class GameManager : MonoBehaviour,IGameManager
         if(generatedBubble.Count < 1)
         {
             GameOver(true);
+            yield break;
         }
         if(remainingAmmo < 1)
         {
