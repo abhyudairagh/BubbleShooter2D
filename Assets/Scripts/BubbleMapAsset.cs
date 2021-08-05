@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-[CreateAssetMenu(fileName = "New BubbleMapAsset", menuName = "BubbleMapAsset")]
+[CreateAssetMenu(fileName = "New BubbleMapAsset", menuName = "BubbleShooter/BubbleMapAsset")]
 public class BubbleMapAsset : ScriptableObject
 {
     [Serializable]

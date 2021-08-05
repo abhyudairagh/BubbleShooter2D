@@ -402,8 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4802e010ecbc0ac4bb2078d452cadbdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreOfOneBubble: 5
-  bubbleAmmoCount: 25
+  configAsset: {fileID: 11400000, guid: d30bbdb058480524b8493b7a91b51c94, type: 2}
   bubbleLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -885,7 +884,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubblePrefab: {fileID: 8882316663846645102, guid: 8e164f59890dbb745bd6ad71b770a5b2, type: 3}
   bubblePlacerColor: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 0.38431373}
-  bubbleSize: 0.5
   scaleOffset: 0.703125
   bubbleMapAsset: {fileID: 11400000, guid: 81877d8fcd1c7b64bb4ba187472d45cc, type: 2}
 --- !u!1 &636452541
@@ -1794,7 +1792,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bubbleHolder: {fileID: 1682216468}
   bubbleBase: {fileID: 1058741565}
-  bubblecolumnCount: 11
   leftWall: {fileID: 1819618074}
   rightWall: {fileID: 1284035920}
 --- !u!1 &1040818821
@@ -4225,7 +4222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d7cbd98e8f9dc74a98fd4a9d89b816d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shootSpeed: 25
   spawnPoint: {fileID: 1040818822}
   dragAimOffset: 0.5
   minTiltAngle: 20

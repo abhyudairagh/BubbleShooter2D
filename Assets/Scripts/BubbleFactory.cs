@@ -28,8 +28,7 @@ public class BubbleFactory : Singleton<BubbleFactory>
     [SerializeField]
     Color bubblePlacerColor;
 
-    [SerializeField]
-    float bubbleSize;
+
     [SerializeField]
     float scaleOffset;
 
@@ -38,6 +37,7 @@ public class BubbleFactory : Singleton<BubbleFactory>
     BubbleMapAsset bubbleMapAsset;
 
     float bubblePlaceHeight;
+    float bubbleSize;
 
     Bound holderBound;
 
@@ -89,6 +89,8 @@ public class BubbleFactory : Singleton<BubbleFactory>
             holderBound = value;
         }
     }
+
+
     public Color GetColor(BubbleType type)
     {
        if(colorMap.ContainsKey(type))
@@ -113,9 +115,14 @@ public class BubbleFactory : Singleton<BubbleFactory>
     }
     protected override void Init()
     {
-        bubblePlaceHeight = bubbleSize * 0.866f;
         colorMap = bubbleMapAsset.GetColorMap();
         textureMap = bubbleMapAsset.GetTextureMap();
+    }
+
+    public void SetbubbleSize(float size)
+    {
+        bubbleSize = size;
+        bubblePlaceHeight = bubbleSize * 0.866f;
     }
 
     public void UpdateTopRowPostions(Vector2[] topBubblePostions)

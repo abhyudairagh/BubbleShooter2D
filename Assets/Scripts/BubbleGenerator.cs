@@ -7,19 +7,19 @@ using UnityEngine;
 /// </summary>
 public class BubbleGenerator : MonoBehaviour, IManagerDependencies
 {
-
     [SerializeField]
     SpriteRenderer bubbleHolder;
     [SerializeField]
     SpriteRenderer bubbleBase;
 
-    [SerializeField]
-    int bubblecolumnCount;
 
     [SerializeField]
     BoxCollider2D leftWall;
     [SerializeField]
     BoxCollider2D rightWall;
+
+
+    int bubblecolumnCount;
 
     IGameManager _gameManager;
     private void OnEnable()
@@ -44,6 +44,7 @@ public class BubbleGenerator : MonoBehaviour, IManagerDependencies
         {
             bubbleHolder = GetComponentInChildren<SpriteRenderer>();
         }
+        bubblecolumnCount = _gameManager.TotalColumnCount;
         InstantiateBubbles();
     }
     /// <summary>

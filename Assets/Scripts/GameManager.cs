@@ -15,10 +15,16 @@ public enum IterateDirection
 /// </summary>
 public class GameManager : MonoBehaviour,IGameManager
 {
-    [SerializeField]
+
     int scoreOfOneBubble;
-    [SerializeField]
     int bubbleAmmoCount;
+    float bubbleSize;
+    int totalColumnCount;
+    float shootingSpeed;
+
+    [SerializeField]
+    GameConfigAsset configAsset;
+
     [SerializeField]
     LayerMask bubbleLayer;
 
@@ -39,7 +45,27 @@ public class GameManager : MonoBehaviour,IGameManager
              return bubbleCount;
         }
     }
-
+    public int TotalColumnCount
+    {
+        get
+        {
+            return totalColumnCount;
+        }
+    }
+    public float BubbleSize
+    {
+        get
+        {
+            return bubbleSize;
+        }
+    }
+    public float ShootingSpeed
+    {
+        get
+        {
+            return shootingSpeed;
+        }
+    }
     public int GameScore
     {
         get
@@ -74,7 +100,16 @@ public class GameManager : MonoBehaviour,IGameManager
 
     private void Start()
     {
-        this.remainingAmmo = bubbleAmmoCount;
+
+        scoreOfOneBubble = configAsset.scorePerBubble;
+        bubbleSize = configAsset.bubbleSize;
+        shootingSpeed = configAsset.shootingSpeed;
+        bubbleAmmoCount = configAsset.bubbleAmmoCount;
+        totalColumnCount = configAsset.bubbleColumnCount;
+
+        remainingAmmo = TotalAmmo;
+
+        BubbleFactory.Instance.SetbubbleSize(bubbleSize);
 
         foreach (MonoBehaviour behaviour in dependencies)
         {
@@ -431,6 +466,9 @@ public class GameManager : MonoBehaviour,IGameManager
 }
 public interface IGameManager
 {
+    float BubbleSize { get; }
+    int TotalColumnCount { get; }
+    float ShootingSpeed { get; }
     int GameScore { get; }
     int RemainingAmmoCount { get; }
     bool IsShooting { get; set; }

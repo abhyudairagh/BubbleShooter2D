@@ -10,11 +10,7 @@ using UnityEngine.EventSystems;
 /// Class for shooting the bubble
 /// </summary>
 public class BubbleShooter : MonoBehaviour,IManagerDependencies
-{
-
-    [SerializeField]
-    float shootSpeed;
-
+{ 
     [SerializeField]
     Transform spawnPoint;
 
@@ -26,6 +22,7 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
     float minTiltAngle;
 
     float maxTiltAngle;
+    float shootSpeed;
 
     int bubbleCount;
 
@@ -85,7 +82,7 @@ public class BubbleShooter : MonoBehaviour,IManagerDependencies
         CreateShooterBubble();
 
 
-        shootSpeed = 1f / (shootSpeed * 0.5f);
+        shootSpeed = 1f / (_gameManager.ShootingSpeed * 0.5f);
 
 
     }
